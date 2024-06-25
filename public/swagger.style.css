@@ -1,0 +1,60 @@
+/* ------------------------- */
+
+body {
+  background-color: #0f172a;
+  color: #fff;
+}
+
+.swagger-ui .topbar {
+  background-color: #020617;
+}
+.swagger-ui .information-container{
+  background-color: #0f172a;
+}
+
+.swagger-ui .opblock-tag-section{
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding-inline: 10px;
+}
+
+.swagger-ui .opblock-tag-section .opblock-tag{
+  color: white;
+  fill: white;
+}
+.swagger-ui .opblock-tag-section .opblock-body{
+  background-color: #0f172a;
+}
+.swagger-ui .opblock .opblock-section-header{
+  background-color: #0f172a;
+}
+.swagger-ui .opblock .opblock-section-header h4{
+  color: white;
+}
+.swagger-ui .try-out__btn{
+  color: white;
+}
+
+.swagger-ui .opblock{
+  border: none;
+}
+
+.swagger-ui .opblock-summary{
+  background-color:#0f172a;
+  border-color: rgba(0, 0, 255, 0) !important;
+  border: none;
+}
+
+.swagger-ui .opblock.opblock-get .opblock-summary-method{
+  background-color: #007fff;
+}
+.swagger-ui .opblock.opblock-post .opblock-summary-method {
+  background: #009b54;
+}
+
+
+
+
+p{
+  color: white;
+}
