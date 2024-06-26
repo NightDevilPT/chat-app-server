@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Group } from 'src/modules/groups/entities/group.entity';
@@ -36,12 +36,12 @@ export class Message {
     @ApiProperty({ description: 'The type of the message', enum:MessageTypeEnum})
     messageType: MessageTypeEnum;
 
-    @Column({ type: 'timestamp' })
-    @ApiProperty({ description: 'The date when the message was created' })
+    @CreateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ description: 'The date when the user was created' })
     createdAt: Date;
 
-    @Column({ type: 'timestamp' })
-    @ApiProperty({ description: 'The date when the message was last updated' })
+    @UpdateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ description: 'The date when the user was last updated' })
     updatedAt: Date;
 
     @Column()

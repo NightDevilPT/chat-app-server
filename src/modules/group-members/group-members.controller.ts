@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { GroupMembersService } from './group-members.service';
 import { CreateGroupMemberDto } from './dto/create-group-member.dto';
 import { UpdateGroupMemberDto } from './dto/update-group-member.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Group Members')
 @Controller('group-members')
 export class GroupMembersController {
   constructor(private readonly groupMembersService: GroupMembersService) {}

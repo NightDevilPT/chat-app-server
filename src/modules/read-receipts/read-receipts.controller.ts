@@ -2,7 +2,10 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { ReadReceiptsService } from './read-receipts.service';
 import { CreateReadReceiptDto } from './dto/create-read-receipt.dto';
 import { UpdateReadReceiptDto } from './dto/update-read-receipt.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+
+@ApiTags('Read Receipts')
 @Controller('read-receipts')
 export class ReadReceiptsController {
   constructor(private readonly readReceiptsService: ReadReceiptsService) {}

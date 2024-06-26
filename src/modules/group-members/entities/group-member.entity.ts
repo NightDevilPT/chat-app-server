@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Group } from 'src/modules/groups/entities/group.entity';
 import { User } from 'src/modules/users/entities/user.entity';
@@ -29,12 +29,12 @@ export class GroupMember {
     @ApiProperty({ description: 'The date when the user joined the group' })
     joinedAt: Date;
 
-    @Column({ type: 'timestamp' })
-    @ApiProperty({ description: 'The date when the group membership was created' })
+    @CreateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ description: 'The date when the user was created' })
     createdAt: Date;
 
-    @Column({ type: 'timestamp' })
-    @ApiProperty({ description: 'The date when the group membership was last updated' })
+    @UpdateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ description: 'The date when the user was last updated' })
     updatedAt: Date;
 
     @Column()

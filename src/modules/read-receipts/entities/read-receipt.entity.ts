@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Message } from 'src/modules/messages/entities/message.entity';
 import { User } from 'src/modules/users/entities/user.entity';
@@ -25,12 +25,12 @@ export class ReadReceipt {
     @ApiProperty({ description: 'The date when the message was read' })
     readAt: Date;
 
-    @Column({ type: 'timestamp' })
-    @ApiProperty({ description: 'The date when the read receipt was created' })
+    @CreateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ description: 'The date when the user was created' })
     createdAt: Date;
 
-    @Column({ type: 'timestamp' })
-    @ApiProperty({ description: 'The date when the read receipt was last updated' })
+    @UpdateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ description: 'The date when the user was last updated' })
     updatedAt: Date;
 
     @Column()

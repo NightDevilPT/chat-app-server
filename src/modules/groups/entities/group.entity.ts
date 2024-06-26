@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/modules/users/entities/user.entity';
 import { Message } from 'src/modules/messages/entities/message.entity';
@@ -22,12 +22,12 @@ export class Group {
     @ApiProperty({ description: 'The ID of the user who created the group' })
     createdBy: string;
 
-    @Column({ type: 'timestamp' })
-    @ApiProperty({ description: 'The date when the group was created' })
+    @CreateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ description: 'The date when the user was created' })
     createdAt: Date;
 
-    @Column({ type: 'timestamp' })
-    @ApiProperty({ description: 'The date when the group was last updated' })
+    @UpdateDateColumn({ type: 'timestamp' })
+    @ApiProperty({ description: 'The date when the user was last updated' })
     updatedAt: Date;
 
     @ManyToOne(() => User, user => user.createdGroups)

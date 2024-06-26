@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne, OneToMany, JoinColumn, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { Profile } from 'src/modules/profiles/entities/profile.entity';
 import { Message } from 'src/modules/messages/entities/message.entity';
@@ -32,11 +32,11 @@ export class User {
     @ApiProperty({ description: 'Whether the user is verified' })
     isVerified: boolean;
 
-    @Column({ type: 'timestamp' })
+    @CreateDateColumn({ type: 'timestamp' })
     @ApiProperty({ description: 'The date when the user was created' })
     createdAt: Date;
 
-    @Column({ type: 'timestamp' })
+    @UpdateDateColumn({ type: 'timestamp' })
     @ApiProperty({ description: 'The date when the user was last updated' })
     updatedAt: Date;
 
