@@ -1,3 +1,4 @@
+import { BlocksModule } from "./blocks/blocks.module";
 import { ChatSocketModule } from "./chat-socket/chat-socket.module";
 import { FilesModule } from "./files/files.module";
 import { GroupMembersModule } from "./group-members/group-members.module";
@@ -15,5 +16,6 @@ export const AllModules = [
 	GroupMembersModule,
 	ReadReceiptsModule,
 	FilesModule,
-	ChatSocketModule
+	ChatSocketModule,
+	BlocksModule
 ]
