@@ -30,16 +30,16 @@ export class User {
   @ApiProperty({ description: 'The email of the user' })
   email: string;
 
-  @Column()
+  @Column({ select: false })
   @ApiProperty({ description: 'The password of the user' })
   password: string;
 
-  @Column()
+  @Column({ select: false })
   @ApiProperty({ description: 'The authentication token of the user' })
   token: string;
 
-  @Column()
-  @ApiProperty({ description: 'Whether the user is verified' })
+  @Column({ default: false, select: false })
+  @ApiProperty({ description: 'Whether the user is verified', default: false })
   isVerified: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
@@ -50,9 +50,7 @@ export class User {
   @ApiProperty({ description: 'The date when the user was last updated' })
   updatedAt: Date;
 
-  @OneToOne(() => Profile, (profile) => profile.user, { cascade: true })
-  @JoinColumn()
-  @ApiProperty({ type: () => Profile, description: 'The profile of the user' })
+  @OneToOne(() => Profile, (profile) => profile.user)
   profile: Profile;
 
   @OneToMany(() => Message, (message) => message.sender, { cascade: true })
