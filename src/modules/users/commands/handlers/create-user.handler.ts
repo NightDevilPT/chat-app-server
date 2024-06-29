@@ -24,7 +24,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     private configService: ConfigService,
     private logger: AppLoggerService,
   ) {
-    this.logger.setContext('CreateUserHandler');
+    this.logger.setContext(CreateUserHandler.name);
   }
 
   async execute({ payload }: CreateUserCommand): Promise<BaseResponse> {

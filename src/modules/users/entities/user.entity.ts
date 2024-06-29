@@ -34,9 +34,9 @@ export class User {
   @ApiProperty({ description: 'The password of the user' })
   password: string;
 
-  @Column({ select: false })
+  @Column({ default: null, select: false, nullable: true })
   @ApiProperty({ description: 'The authentication token of the user' })
-  token: string;
+  token: string | null;
 
   @Column({ default: false, select: false })
   @ApiProperty({ description: 'Whether the user is verified', default: false })
