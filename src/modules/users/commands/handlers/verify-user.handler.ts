@@ -1,9 +1,10 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandBus, CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { VerifyUserCommand } from '../impl/verify-user.command';
 import { AppErrorService } from 'src/modules/error/error.service';
 import { UserRepository } from '../../entities/user.repository';
 import { AppLoggerService } from 'src/modules/logger/logger.service';
-import { BaseResponse } from 'src/interface';
+import { BaseResponse, EventTypesEnum } from 'src/interface';
+import { CreateHistoryCommand } from 'src/modules/history/command/impl/create-history.command';
 
 @CommandHandler(VerifyUserCommand)
 export class VerifyUserHandler implements ICommandHandler<VerifyUserCommand> {
@@ -11,6 +12,7 @@ export class VerifyUserHandler implements ICommandHandler<VerifyUserCommand> {
     private readonly userRepo: UserRepository,
     private readonly errorService: AppErrorService,
     private readonly logger: AppLoggerService,
+    private readonly commandBus: CommandBus,
   ) {
     this.logger.setContext(VerifyUserHandler.name);
   }
@@ -19,7 +21,7 @@ export class VerifyUserHandler implements ICommandHandler<VerifyUserCommand> {
     this.logger.log(`Execution started with token: ${token}`);
 
     if (!token || token.trim() === '') {
-      this.logger.error('Token is empty or invalid','Token validation failed');
+      this.logger.error('Token is empty or invalid', 'Token validation failed');
       throw this.errorService.throwForbiddenError('Invalid token');
     }
 
@@ -29,7 +31,10 @@ export class VerifyUserHandler implements ICommandHandler<VerifyUserCommand> {
     });
 
     if (!user) {
-      this.logger.error('User not found with the provided token','Token validation failed');
+      this.logger.error(
+        'User not found with the provided token',
+        'Token validation failed',
+      );
       throw this.errorService.throwForbiddenError('Invalid token');
     }
 
@@ -38,7 +43,17 @@ export class VerifyUserHandler implements ICommandHandler<VerifyUserCommand> {
 
     await this.userRepo.save(user);
 
-    this.logger.log(`User with email ${user.email} has been successfully verified`);
+    this.logger.log(
+      `User with email ${user.email} has been successfully verified`,
+    );
+    this.commandBus.execute(
+      new CreateHistoryCommand(
+        EventTypesEnum.UserVerifiedEvent,
+        user.id,
+        null,
+        null,
+      ),
+    );
     return {
       message: `User with email ${user.email} has been successfully verified.`,
     };

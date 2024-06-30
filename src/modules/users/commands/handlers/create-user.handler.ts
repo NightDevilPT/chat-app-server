@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandBus, CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { CreateUserCommand } from '../impl/create-user.command';
 import { UserRepository } from '../../entities/user.repository';
 import { AppErrorService } from 'src/modules/error/error.service';
@@ -11,8 +11,9 @@ import {
   getMailTemplate,
 } from 'src/templates/mail-templates';
 import { User } from '../../entities/user.entity';
-import { BaseResponse } from 'src/interface';
+import { BaseResponse, EventTypesEnum } from 'src/interface';
 import { AppLoggerService } from 'src/modules/logger/logger.service';
+import { CreateHistoryCommand } from 'src/modules/history/command/impl/create-history.command';
 
 @CommandHandler(CreateUserCommand)
 export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
@@ -23,6 +24,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     private mailService: MailService,
     private configService: ConfigService,
     private logger: AppLoggerService,
+    private commandBus: CommandBus
   ) {
     this.logger.setContext(CreateUserHandler.name);
   }
@@ -53,7 +55,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     userPayload.token = token;
     userPayload.email = payload.email;
 
-    await this.userRepo.save(userPayload);
+    const createUser = await this.userRepo.save(userPayload);
     this.logger.log(`User registered successfully: ${payload.email}`);
 
     const verifyLink = `${this.configService.get('ORIGIN')}/auth/verify?token=${token}`;
@@ -71,7 +73,8 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       emailContent,
     );
 
-    this.logger.log(`Verification email sent to: ${payload.email}`);
+    this.logger.log(`Verification email sent to: ${payload.email} ${userPayload.id}`);
+    this.commandBus.execute(new CreateHistoryCommand(EventTypesEnum.UserCreatedEvent,createUser.id,null,null))
 
     return {
       message: `Verification link sent to your email ${payload.email}`,

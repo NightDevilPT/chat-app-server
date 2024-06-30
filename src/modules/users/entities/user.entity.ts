@@ -15,6 +15,7 @@ import { Group } from 'src/modules/groups/entities/group.entity';
 import { GroupMember } from 'src/modules/group-members/entities/group-member.entity';
 import { ReadReceipt } from 'src/modules/read-receipts/entities/read-receipt.entity';
 import { Block } from 'src/modules/blocks/entities/block.entity';
+import { History } from 'src/modules/history/entities/history.entity';
 
 @Entity('users')
 export class User {
@@ -105,4 +106,7 @@ export class User {
     description: 'The users who have blocked this user',
   })
   blockedByUsers: Block[];
+
+  @OneToMany(() => History, history => history.user)
+  history: History[];
 }
