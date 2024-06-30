@@ -7,6 +7,8 @@ import { UpdateUserPasswordRequestDto } from './dto/update-password-request.dto'
 import { UpdateUserPasswordRequestCommand } from './commands/impl/update-user-password-request.command';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
 import { UpdateUserPasswordCommand } from './commands/impl/update-user-password.command';
+import { LoginUserDto } from './dto/login-user.dto';
+import { LoginUserCommand } from './commands/impl/login-user.command';
 
 @Injectable()
 export class UsersService {
@@ -14,6 +16,10 @@ export class UsersService {
 
   create(createUserDto: CreateUserDto) {
     return this.commandBus.execute(new CreateUserCommand(createUserDto));
+  }
+
+  login(loginDto: LoginUserDto) {
+    return this.commandBus.execute(new LoginUserCommand(loginDto));
   }
 
   verify(token: string) {

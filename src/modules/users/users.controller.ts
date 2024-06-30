@@ -10,6 +10,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger';
 import { UpdateUserPasswordRequestDto } from './dto/update-password-request.dto';
 import { UpdateUserPasswordDto } from './dto/update-user-password.dto';
+import { LoginUserDto } from './dto/login-user.dto';
 
 @ApiTags('Users')
 @Controller('users')
@@ -20,6 +21,12 @@ export class UsersController {
   @ApiConsumes('application/x-www-form-urlencoded')
   create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
+  }
+
+  @Post('/login')
+  @ApiConsumes('application/x-www-form-urlencoded')
+  login(@Body() loginDto: LoginUserDto) {
+    return this.usersService.login(loginDto);
   }
 
   @Put('/verify/:token')

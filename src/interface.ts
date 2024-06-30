@@ -9,6 +9,10 @@ export interface BaseResponse {
   message: string;
 }
 
+export interface loginResponse extends BaseResponse{
+  jwt:string;
+}
+
 export interface GetEntityResponse {
   data: History[] | [];
   meta: {
