@@ -6,6 +6,14 @@ export function setupSwagger(app: INestApplication): void {
     .setTitle('Chat App')
     .setDescription('API documentation')
     .setVersion('1.0')
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+      },
+      'access-token', // This name must match the name used in the controller's @ApiBearerAuth decorator
+    )
     .build();
 
   const document = SwaggerModule.createDocument(app, options);

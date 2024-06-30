@@ -6,17 +6,20 @@ import { GetEntityResponse } from 'src/interface';
 
 @QueryHandler(GetHistoryQuery)
 export class GetHistoryHandler implements IQueryHandler<GetHistoryQuery> {
-  constructor(
-    private readonly historyRepo: HistoryRepository,
-  ) {}
+  constructor(private readonly historyRepo: HistoryRepository) {}
 
   async execute(query: GetHistoryQuery): Promise<GetEntityResponse> {
     const page = Number(query.page);
     const limit = Number(query.limit);
+    const id = query.userId;
 
     const [data, totalResults] = await this.historyRepo.findAndCount({
+      where: { user: { id } },
       skip: (page - 1) * limit,
       take: limit,
+      order: {
+        createdAt: 'ASC',
+      },
     });
 
     const totalPages = Math.ceil(totalResults / limit);

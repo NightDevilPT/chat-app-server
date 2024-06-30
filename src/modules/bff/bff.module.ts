@@ -8,6 +8,7 @@ import { BffQueriesHandlers } from './queries';
 import { CqrsModule } from '@nestjs/cqrs';
 import { LoggerModule } from '../logger/logger.module';
 import { ErrorModule } from '../error/error.module';
+import { JwtService } from 'src/service/jwt-service/jwt-service.service';
 
 @Module({
   imports: [
@@ -17,6 +18,6 @@ import { ErrorModule } from '../error/error.module';
     ErrorModule,
   ],
   controllers: [BffController],
-  providers: [BffService, HistoryRepository, ...BffQueriesHandlers],
+  providers: [BffService, HistoryRepository, JwtService, ...BffQueriesHandlers],
 })
 export class BffModule {}

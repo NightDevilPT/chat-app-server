@@ -7,8 +7,12 @@ import { GetEntityResponse } from 'src/interface';
 export class BffService {
   constructor(private readonly queryBus: QueryBus) {}
 
-  async getHistory(page: number, limit: number): Promise<GetEntityResponse> {
-    const query = new GetHistoryQuery(page, limit);
+  async getHistory(
+    page: number,
+    limit: number,
+    userId: string,
+  ): Promise<GetEntityResponse> {
+    const query = new GetHistoryQuery(page, limit, userId);
     return this.queryBus.execute(query);
   }
 }
