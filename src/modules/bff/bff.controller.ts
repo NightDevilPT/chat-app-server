@@ -14,7 +14,6 @@ import { BffService } from './bff.service';
 import { ApiBearerAuth, ApiQuery, ApiTags } from '@nestjs/swagger';
 import { GetEntityResponse, RequestWithUser } from 'src/interface';
 import { AuthGuard } from 'src/guards/auth.guard';
-import { JwtService } from 'src/service/jwt-service/jwt-service.service';
 
 @ApiTags('bff')
 @ApiBearerAuth('access-token')

@@ -6,19 +6,20 @@ import {
   OneToOne,
   CreateDateColumn,
   UpdateDateColumn,
+  JoinColumn,
 } from 'typeorm';
 import { ApiProperty } from '@nestjs/swagger';
 import { User } from 'src/modules/users/entities/user.entity';
 
 @Entity('profiles')
 export class Profile {
+  constructor(partial: Partial<Profile>) {
+    Object.assign(this, partial);
+  }
+
   @PrimaryGeneratedColumn('uuid')
   @ApiProperty({ description: 'The unique identifier of the profile' })
   id: string;
-
-  @Column()
-  @ApiProperty({ description: 'The ID of the user this profile belongs to' })
-  userId: string;
 
   @Column()
   @ApiProperty({ description: 'The first name of the user' })
@@ -44,10 +45,10 @@ export class Profile {
   @ApiProperty({ description: 'The date when the user was last updated' })
   updatedAt: Date;
 
-  @OneToOne(() => User, (user) => user.profile)
-  @ApiProperty({
-    type: () => User,
-    description: 'The user this profile belongs to',
+  @OneToOne(() => User, (user) => user.profile, {
+    cascade: ['insert', 'update'],
+    eager: true,
   })
+  @JoinColumn()
   user: User;
 }

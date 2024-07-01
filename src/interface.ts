@@ -1,5 +1,6 @@
 import { JwtPayload } from 'jsonwebtoken';
 import { History } from './modules/history/entities/history.entity';
+import { Profile } from './modules/profiles/entities/profile.entity';
 
 export interface RequestWithUser extends Request {
   user: JwtPayload;
@@ -9,8 +10,8 @@ export interface BaseResponse {
   message: string;
 }
 
-export interface loginResponse extends BaseResponse{
-  jwt:string;
+export interface loginResponse extends BaseResponse {
+  jwt: string;
 }
 
 export interface GetEntityResponse {
@@ -30,4 +31,14 @@ export enum EventTypesEnum {
   UserLoginedEvent = 'UserLoginedEvent',
   UserPasswordUpdatedEvent = 'UserPasswordUpdatedEvent',
   UserPasswordUpdateRequestEvent = 'UserPasswordUpdateRequestEvent',
+}
+
+export enum GenderEnum {
+  MALE = 'MALE',
+  FEMALE = 'FEMALE',
+  OTHER = 'OTHER',
+}
+
+export interface ProfileResponse extends BaseResponse {
+  data: Profile;
 }

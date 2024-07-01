@@ -107,6 +107,10 @@ export class User {
   })
   blockedByUsers: Block[];
 
-  @OneToMany(() => History, history => history.user)
+  @OneToMany(() => History, (history) => history.user, { cascade: true })
+  @ApiProperty({
+    type: () => [History],
+    description: 'The users history',
+  })
   history: History[];
 }

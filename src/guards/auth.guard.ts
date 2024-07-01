@@ -39,5 +39,3 @@ export class AuthGuard implements CanActivate {
     return type === 'Bearer' && token ? token : null;
   }
 }
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkxYjAyOGNkLTRkNmMtNGJiZi1iMzBkLTViODFmZjM4MGNkNCIsImVtYWkiOiJuaWdodGRldmlscHRAZ21haWwuY29tIiwidG9rZW5UaW1lIjoxNzE5NzI5NjY3MTE2LCJpYXQiOjE3MTk3Mjk2NjcsImV4cCI6MTcxOTczMzI2N30.1QOveCLNGOmaPo4XZV8IH_mgxpzVBebeXJKxfwRoM5k

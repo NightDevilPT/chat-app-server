@@ -1,36 +1,21 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { RequestWithUser } from 'src/interface';
 
 @ApiTags('Profiles')
+@ApiBearerAuth('access-token')
+@UseGuards(AuthGuard)
 @Controller('profiles')
 export class ProfilesController {
   constructor(private readonly profilesService: ProfilesService) {}
 
   @Post()
-  create(@Body() createProfileDto: CreateProfileDto) {
-    return this.profilesService.create(createProfileDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.profilesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.profilesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateProfileDto: UpdateProfileDto) {
-    return this.profilesService.update(+id, updateProfileDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.profilesService.remove(+id);
+  @ApiConsumes('application/x-www-form-urlencoded')
+  create(@Body() payload:CreateProfileDto,@Req() req:RequestWithUser){
+    return this.profilesService.create(payload,req.user.id)
   }
 }
