@@ -31,6 +31,9 @@ export enum EventTypesEnum {
   UserLoginedEvent = 'UserLoginedEvent',
   UserPasswordUpdatedEvent = 'UserPasswordUpdatedEvent',
   UserPasswordUpdateRequestEvent = 'UserPasswordUpdateRequestEvent',
+
+  ProfileCreatedEvent='ProfileCreatedEvent',
+  ProfileUpdatedEvent='ProfileUpdatedEvent'
 }
 
 export enum GenderEnum {
@@ -42,3 +45,5 @@ export enum GenderEnum {
 export interface ProfileResponse extends BaseResponse {
   data: Profile;
 }
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjkxYjAyOGNkLTRkNmMtNGJiZi1iMzBkLTViODFmZjM4MGNkNCIsImVtYWkiOiJuaWdodGRldmlscHRAZ21haWwuY29tIiwidG9rZW5UaW1lIjoxNzE5OTY2NDA1ODkyLCJpYXQiOjE3MTk5NjY0MDUsImV4cCI6MTcxOTk3MDAwNX0.q1zTrVm_dC2sK0HgVJtlPECIc_sEP5f8DzNjiWINvSQ

@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Req } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Req,
+  Put,
+} from '@nestjs/common';
 import { ProfilesService } from './profiles.service';
 import { CreateProfileDto } from './dto/create-profile.dto';
 import { UpdateProfileDto } from './dto/update-profile.dto';
@@ -15,7 +26,16 @@ export class ProfilesController {
 
   @Post()
   @ApiConsumes('application/x-www-form-urlencoded')
-  create(@Body() payload:CreateProfileDto,@Req() req:RequestWithUser){
-    return this.profilesService.create(payload,req.user.id)
+  create(@Body() payload: CreateProfileDto, @Req() req: RequestWithUser) {
+    return this.profilesService.create(payload, req.user.id);
+  }
+
+  @Put(':profileId')
+  // @ApiConsumes('application/x-www-form-urlencoded')
+  update(
+    @Body() payload: UpdateProfileDto,
+    @Param('profileId') profileId: string,
+  ) {
+    return this.profilesService.update(payload, profileId);
   }
 }
