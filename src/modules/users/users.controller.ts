@@ -1,10 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Put,
-  Param,
-} from '@nestjs/common';
+import { Controller, Post, Body, Put, Param } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { ApiConsumes, ApiParam, ApiTags } from '@nestjs/swagger';
@@ -37,8 +31,12 @@ export class UsersController {
 
   @Put('/update-password/request')
   @ApiConsumes('application/x-www-form-urlencoded')
-  requestPasswordUpdate(@Body() updateUserPasswordRequestDto: UpdateUserPasswordRequestDto) {
-    return this.usersService.updatePasswordRequest(updateUserPasswordRequestDto);
+  requestPasswordUpdate(
+    @Body() updateUserPasswordRequestDto: UpdateUserPasswordRequestDto,
+  ) {
+    return this.usersService.updatePasswordRequest(
+      updateUserPasswordRequestDto,
+    );
   }
 
   @Put('/update-password/update/:token')

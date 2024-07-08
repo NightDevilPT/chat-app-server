@@ -1,5 +1,3 @@
-import { CreateHistoryHandler } from "./handler/create-history.handler";
+import { CreateHistoryHandler } from './handler/create-history.handler';
 
-export const HistoryHandlers=[
-	CreateHistoryHandler
-]
+export const HistoryHandlers = [CreateHistoryHandler];

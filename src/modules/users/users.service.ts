@@ -27,10 +27,14 @@ export class UsersService {
   }
 
   updatePasswordRequest(payload: UpdateUserPasswordRequestDto) {
-    return this.commandBus.execute(new UpdateUserPasswordRequestCommand(payload));
+    return this.commandBus.execute(
+      new UpdateUserPasswordRequestCommand(payload),
+    );
   }
 
-  updatePassword(payload: UpdateUserPasswordDto,token:string) {
-    return this.commandBus.execute(new UpdateUserPasswordCommand(payload,token))
+  updatePassword(payload: UpdateUserPasswordDto, token: string) {
+    return this.commandBus.execute(
+      new UpdateUserPasswordCommand(payload, token),
+    );
   }
 }

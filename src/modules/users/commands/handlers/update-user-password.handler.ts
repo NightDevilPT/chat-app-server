@@ -16,7 +16,7 @@ export class UpdateUserPasswordHandler
     private readonly errorService: AppErrorService,
     private readonly logger: AppLoggerService,
     private readonly hashService: PasswordService,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
   ) {
     this.logger.setContext(UpdateUserPasswordHandler.name);
   }
@@ -25,15 +25,20 @@ export class UpdateUserPasswordHandler
     payload,
     token,
   }: UpdateUserPasswordCommand): Promise<BaseResponse> {
-    this.logger.log(`Execution started with token: ${token} and payload: ${JSON.stringify(payload, null, 2)}`);
-    
+    this.logger.log(
+      `Execution started with token: ${token} and payload: ${JSON.stringify(payload, null, 2)}`,
+    );
+
     const user = await this.userRepo.findOne({
       where: { token },
       select: ['token', 'id', 'password'],
     });
 
     if (!user) {
-      this.logger.error(`User not found with token: ${token}`,'Not Found Error');
+      this.logger.error(
+        `User not found with token: ${token}`,
+        'Not Found Error',
+      );
       throw this.errorService.throwNotFoundError(`User not found`);
     }
 
@@ -43,7 +48,14 @@ export class UpdateUserPasswordHandler
     await this.userRepo.save(user);
 
     this.logger.log(`Password successfully updated for user ID: ${user.id}`);
-    this.commandBus.execute(new CreateHistoryCommand(EventTypesEnum.UserPasswordUpdatedEvent,user.id,null,null))
+    this.commandBus.execute(
+      new CreateHistoryCommand(
+        EventTypesEnum.UserPasswordUpdatedEvent,
+        user.id,
+        null,
+        null,
+      ),
+    );
     return {
       message: `Password successfully updated.`,
     };

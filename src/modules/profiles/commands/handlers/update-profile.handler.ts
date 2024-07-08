@@ -28,7 +28,7 @@ export class UpdateProfileHandler
       where: { id: profileId },
       relations: ['user'],
     });
-	console.log(profileId,payload,'@@@@@@')
+    console.log(profileId, payload, '@@@@@@');
 
     if (!existingProfile) {
       this.logger.error(`Profile not found: profileId ${profileId}`, '');

@@ -1,5 +1,3 @@
-import { GetHistoryHandler } from "./handler/get-history.handler";
+import { GetHistoryHandler } from './handler/get-history.handler';
 
-export const BffQueriesHandlers = [
-	GetHistoryHandler
-]
+export const BffQueriesHandlers = [GetHistoryHandler];

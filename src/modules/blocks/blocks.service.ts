@@ -1,26 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBlockDto } from './dto/create-block.dto';
-import { UpdateBlockDto } from './dto/update-block.dto';
+import { CommandBus } from '@nestjs/cqrs';
+import { CreateBlockCommand } from './commands/impl/create-block.command';
 
 @Injectable()
 export class BlocksService {
-  create(createBlockDto: CreateBlockDto) {
-    return 'This action adds a new block';
-  }
+  constructor(private commandBus: CommandBus) {}
 
-  findAll() {
-    return `This action returns all blocks`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} block`;
-  }
-
-  update(id: number, updateBlockDto: UpdateBlockDto) {
-    return `This action updates a #${id} block`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} block`;
+  create(payload: CreateBlockDto, userId: string) {
+    return this.commandBus.execute(new CreateBlockCommand(payload, userId));
   }
 }

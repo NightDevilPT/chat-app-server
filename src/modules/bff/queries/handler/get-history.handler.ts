@@ -1,7 +1,6 @@
 import { QueryHandler, IQueryHandler } from '@nestjs/cqrs';
 import { GetHistoryQuery } from '../impl/get-history.query';
 import { HistoryRepository } from 'src/modules/history/entities/history.repository';
-import { History } from 'src/modules/history/entities/history.entity';
 import { GetEntityResponse } from 'src/interface';
 
 @QueryHandler(GetHistoryQuery)

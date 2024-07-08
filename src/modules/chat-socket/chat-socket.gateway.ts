@@ -12,12 +12,14 @@ import { Server, Socket } from 'socket.io';
     origin: '*',
   },
 })
-export class ChatSocketGateway implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect {
+export class ChatSocketGateway
+  implements OnGatewayInit, OnGatewayConnection, OnGatewayDisconnect
+{
   @WebSocketServer() server: Server;
   private users: Map<string, string> = new Map(); // Map to store userId -> socketId
 
   afterInit(server: Server) {
-    console.log('WebSocket server initialized');
+    console.log('WebSocket server initialized', server);
   }
 
   handleConnection(client: Socket) {

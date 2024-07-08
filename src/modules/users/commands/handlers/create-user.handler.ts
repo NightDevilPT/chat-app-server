@@ -24,7 +24,7 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
     private mailService: MailService,
     private configService: ConfigService,
     private logger: AppLoggerService,
-    private commandBus: CommandBus
+    private commandBus: CommandBus,
   ) {
     this.logger.setContext(CreateUserHandler.name);
   }
@@ -73,8 +73,17 @@ export class CreateUserHandler implements ICommandHandler<CreateUserCommand> {
       emailContent,
     );
 
-    this.logger.log(`Verification email sent to: ${payload.email} ${userPayload.id}`);
-    this.commandBus.execute(new CreateHistoryCommand(EventTypesEnum.UserCreatedEvent,createUser.id,null,null))
+    this.logger.log(
+      `Verification email sent to: ${payload.email} ${userPayload.id}`,
+    );
+    this.commandBus.execute(
+      new CreateHistoryCommand(
+        EventTypesEnum.UserCreatedEvent,
+        createUser.id,
+        null,
+        null,
+      ),
+    );
 
     return {
       message: `Verification link sent to your email ${payload.email}`,

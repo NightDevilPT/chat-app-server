@@ -22,7 +22,7 @@ export class CreateProfileDto {
   @IsNotEmpty()
   gender: GenderEnum;
 
-  @ApiProperty({ description: 'The avatar of the user',required:false })
+  @ApiProperty({ description: 'The avatar of the user', required: false })
   @IsString()
   @IsOptional()
   avatar: string;

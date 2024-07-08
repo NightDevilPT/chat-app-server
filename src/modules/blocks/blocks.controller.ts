@@ -1,36 +1,20 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, UseGuards, Req } from '@nestjs/common';
 import { BlocksService } from './blocks.service';
 import { CreateBlockDto } from './dto/create-block.dto';
-import { UpdateBlockDto } from './dto/update-block.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiConsumes, ApiTags } from '@nestjs/swagger';
+import { AuthGuard } from 'src/guards/auth.guard';
+import { RequestWithUser } from 'src/interface';
 
 @ApiTags('blocks')
 @Controller('blocks')
+@ApiBearerAuth('access-token')
+@UseGuards(AuthGuard)
 export class BlocksController {
   constructor(private readonly blocksService: BlocksService) {}
 
   @Post()
-  create(@Body() createBlockDto: CreateBlockDto) {
-    return this.blocksService.create(createBlockDto);
-  }
-
-  @Get()
-  findAll() {
-    return this.blocksService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.blocksService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateBlockDto: UpdateBlockDto) {
-    return this.blocksService.update(+id, updateBlockDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.blocksService.remove(+id);
+  @ApiConsumes('application/x-www-form-urlencoded')
+  create(@Body() createBlockDto: CreateBlockDto, @Req() req: RequestWithUser) {
+    return this.blocksService.create(createBlockDto, req.user.id);
   }
 }

@@ -32,8 +32,11 @@ export enum EventTypesEnum {
   UserPasswordUpdatedEvent = 'UserPasswordUpdatedEvent',
   UserPasswordUpdateRequestEvent = 'UserPasswordUpdateRequestEvent',
 
-  ProfileCreatedEvent='ProfileCreatedEvent',
-  ProfileUpdatedEvent='ProfileUpdatedEvent'
+  ProfileCreatedEvent = 'ProfileCreatedEvent',
+  ProfileUpdatedEvent = 'ProfileUpdatedEvent',
+
+  UserBlockEvent = 'UserBlockEvent',
+  UserUnblockEvent = 'UserUnblockEvent',
 }
 
 export enum GenderEnum {

@@ -7,7 +7,7 @@ import { JwtService } from 'src/service/jwt-service/jwt-service.service';
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService,
-    private readonly appErrorService: AppErrorService
+    private readonly appErrorService: AppErrorService,
   ) {}
 
   canActivate(

@@ -13,11 +13,7 @@ import { Profile } from './entities/profile.entity';
 import { User } from '../users/entities/user.entity';
 
 @Module({
-  imports: [
-    CqrsModule,
-    LoggerModule,
-    ErrorModule,
-  ],
+  imports: [CqrsModule, LoggerModule, ErrorModule],
   controllers: [ProfilesController],
   providers: [
     ProfilesService,

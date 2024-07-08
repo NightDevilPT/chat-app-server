@@ -1,9 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { ReadReceiptsService } from './read-receipts.service';
 import { CreateReadReceiptDto } from './dto/create-read-receipt.dto';
 import { UpdateReadReceiptDto } from './dto/update-read-receipt.dto';
 import { ApiTags } from '@nestjs/swagger';
-
 
 @ApiTags('Read Receipts')
 @Controller('read-receipts')
@@ -26,7 +33,10 @@ export class ReadReceiptsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReadReceiptDto: UpdateReadReceiptDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateReadReceiptDto: UpdateReadReceiptDto,
+  ) {
     return this.readReceiptsService.update(+id, updateReadReceiptDto);
   }
 

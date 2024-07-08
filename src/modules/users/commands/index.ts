@@ -9,5 +9,5 @@ export const UserCommandHandlers = [
   VerifyUserHandler,
   UpdateUserPasswordRequestHandler,
   UpdateUserPasswordHandler,
-  LoginUserHandler
+  LoginUserHandler,
 ];

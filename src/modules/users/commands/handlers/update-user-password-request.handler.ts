@@ -21,12 +21,14 @@ export class UpdateUserPasswordRequestHandler
     private readonly hashService: PasswordService,
     private readonly mailService: MailService,
     private readonly configService: ConfigService,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
   ) {
     this.logger.setContext(UpdateUserPasswordRequestHandler.name);
   }
 
-  async execute({ payload }: UpdateUserPasswordRequestCommand): Promise<BaseResponse> {
+  async execute({
+    payload,
+  }: UpdateUserPasswordRequestCommand): Promise<BaseResponse> {
     const { email } = payload;
     this.logger.log(
       `Execution started for update password request with payload: ${JSON.stringify(payload, null, 2)}`,
@@ -63,7 +65,14 @@ export class UpdateUserPasswordRequestHandler
     );
 
     this.logger.log(`Update password link sent to ${email}`);
-    this.commandBus.execute(new CreateHistoryCommand(EventTypesEnum.UserPasswordUpdateRequestEvent,user.id,null,null))
+    this.commandBus.execute(
+      new CreateHistoryCommand(
+        EventTypesEnum.UserPasswordUpdateRequestEvent,
+        user.id,
+        null,
+        null,
+      ),
+    );
     return {
       message: `Update password link sent to your email.`,
     };
